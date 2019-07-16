@@ -62,13 +62,25 @@ class Scraper(object):
         raise Exception('Must override abstract method scrape')
 
     def login(self, email, password):
-        email_input = self.driver.find_element_by_css_selector(
-            'input.login-email')
-        password_input = self.driver.find_element_by_css_selector(
-            'input.login-password')
-        email_input.send_keys(email)
-        password_input.send_keys(password)
-        password_input.send_keys(Keys.ENTER)
+#         email_input = self.driver.find_element_by_css_selector(
+#             'input.login-email')
+#         password_input = self.driver.find_element_by_css_selector(
+#             'input.login-password')
+#         email_input.send_keys(email)
+#         password_input.send_keys(password)
+#         password_input.send_keys(Keys.ENTER)
+        
+        self.driver.get("https://www.linkedin.com/login")
+        element = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.ID, "username")))
+
+        email_elem = self.driver.find_element_by_id("username")
+        email_elem.send_keys(email)
+
+        password_elem = self.driver.find_element_by_id("password")
+        password_elem.send_keys(password)
+        self.driver.find_element_by_tag_name("button").click()
+
+        element = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.ID, "profile-nav-item")))
 
     def get_html(self, url):
         self.load_profile_page(url)
