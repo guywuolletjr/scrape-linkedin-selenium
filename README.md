@@ -1,5 +1,7 @@
 # scrape_linkedin
 
+I changed the login script to work properly again. 
+
 ## Introduction
 
 `scrape_linkedin` is a python package to scrape all details from public LinkedIn
